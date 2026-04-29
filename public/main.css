@@ -1,0 +1,38 @@
+h1{
+    text-align: center;
+    color: white;
+    background-color: black;
+    padding: 20px;
+    
+}
+
+h3{
+    color: black;
+    background-color: white;
+}
+
+#body{
+    background-color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    border-left: solid 1px black;
+}
+
+#Zone_Image{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-left: solid 1px black;
+    padding-left: 20px;
+    margin-top: 50px;
+}
+
+#Zone_Interface{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-left: solid 1px black;
+    padding-left: 20px;
+    margin-top: 50px;
+}
