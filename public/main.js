@@ -1,34 +1,20 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// Fonction appelée quand on clique sur "Se connecter"
-// Elle lit la valeur du <select> et appelle le serveur
-// ─────────────────────────────────────────────────────────────────────────────
+//Conection a la basse de donnée
 function connecterBDD() {
-
-    // On récupère la valeur choisie dans le menu déroulant
     const exerciceChoisi = document.getElementById("bdd-select").value;
 
-    // On demande au serveur de changer de base de données
     fetch(`/use/${exerciceChoisi}`)
         .then(res => res.text())
         .then(() => {
-            // Une fois le serveur prêt, on construit l'interface
             afficherExercice(exerciceChoisi);
         })
         .catch(err => alert("Erreur de connexion : " + err));
 }
 
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Fonction qui construit l'interface selon l'exercice choisi
-// ─────────────────────────────────────────────────────────────────────────────
+//Affichage des exercice
 function afficherExercice(exercice) {
 
-    // --- Étape 1 : on efface ce qui était affiché avant ---
     document.getElementById("zone-interface").textContent = "";
     document.getElementById("zone-image").textContent = "";
-
-
-    // --- Étape 2 : on crée les titres des deux zones ---
 
     const titreInterface = document.createElement("h3");
     titreInterface.textContent = "Interface";
@@ -38,54 +24,58 @@ function afficherExercice(exercice) {
     titreImage.textContent = "Image de la BDD";
     document.getElementById("zone-image").appendChild(titreImage);
 
-
-    // --- Étape 3 : on prépare l'image (le src sera défini plus bas) ---
     const img = document.createElement("img");
 
-
-    // --- Étape 4 : on crée le conteneur du formulaire ---
     const formContainer = document.createElement("div");
     formContainer.id = "form-container";
     document.getElementById("zone-interface").appendChild(formContainer);
 
-
-    // ─── Exercice 1 ──────────────────────────────────────────────────────────
+    //Exercice 1
     if (exercice === "TP2_BDD_EXO_1") {
 
-        // Image
         img.src = "Capture/Capture_exo_1.PNG";
         img.alt = "Capture de la BDD exercice 1";
 
-        // -- Partie 1 : Joueurs --
-
+        //Partie 1
         const labelJoueurs = document.createElement("p");
         labelJoueurs.textContent = "Choisir les joueurs";
         formContainer.appendChild(labelJoueurs);
 
-        // Ligne avec les deux inputs côte à côte
-        const rowJoueurs = document.createElement("div");
-        rowJoueurs.id = "row-joueurs";
-        formContainer.appendChild(rowJoueurs);
+        const Joueur_1 = document.createElement("div");
+        Joueur_1.className = "joueur_nom_prenom";
+        formContainer.appendChild(Joueur_1);
 
-        const inputJoueur1 = document.createElement("input");
-        inputJoueur1.type = "text";
-        inputJoueur1.placeholder = "Joueur 1";
-        rowJoueurs.appendChild(inputJoueur1);
+        const input_joueur_1_nom = document.createElement("input");
+        input_joueur_1_nom.type = "text";
+        input_joueur_1_nom.placeholder = "Nom du joueur 1";
+        Joueur_1.appendChild(input_joueur_1_nom);
+
+        const input_joueur_1_prenom = document.createElement("input");
+        input_joueur_1_prenom.type = "text";
+        input_joueur_1_prenom.placeholder = "Prenom du joueur 1";
+        Joueur_1.appendChild(input_joueur_1_prenom);
 
         const vs = document.createElement("p");
         vs.textContent = "VS";
-        rowJoueurs.appendChild(vs);
+        formContainer.appendChild(vs);
 
-        const inputJoueur2 = document.createElement("input");
-        inputJoueur2.type = "text";
-        inputJoueur2.placeholder = "Joueur 2";
-        rowJoueurs.appendChild(inputJoueur2);
+        const Joueur_2 = document.createElement("div");
+        Joueur_2.className = "joueur_nom_prenom";
+        formContainer.appendChild(Joueur_2);
 
+        const input_joueur_2_nom = document.createElement("input");
+        input_joueur_2_nom.type = "text";
+        input_joueur_2_nom.placeholder = "Nom du joueur 2";
+        Joueur_2.appendChild(input_joueur_2_nom);
 
-        // -- Partie 2 : Date & heure --
+        const input_joueur_2_prenom = document.createElement("input");
+        input_joueur_2_prenom.type = "text";
+        input_joueur_2_prenom.placeholder = "Prenom du joueur 2";
+        Joueur_2.appendChild(input_joueur_2_prenom);
 
+        //Partie 2
         const labelDateTime = document.createElement("p");
-        labelDateTime.textContent = "Quelle date et heure ?";
+        labelDateTime.textContent = "Date et heure";
         formContainer.appendChild(labelDateTime);
 
         const rowDateTime = document.createElement("div");
@@ -97,7 +87,6 @@ function afficherExercice(exercice) {
         inputDate.placeholder = "Date";
         rowDateTime.appendChild(inputDate);
 
-        // Élément vide qui sert de séparateur visuel entre date et heure
         const separateur = document.createElement("span");
         rowDateTime.appendChild(separateur);
 
@@ -106,15 +95,13 @@ function afficherExercice(exercice) {
         inputHeure.placeholder = "Heure";
         rowDateTime.appendChild(inputHeure);
 
-
-        // -- Partie 3 : Terrain --
-
+        //Partie 3
         const rowTerrain = document.createElement("div");
         rowTerrain.id = "row-terrain";
         formContainer.appendChild(rowTerrain);
 
         const labelTerrain = document.createElement("p");
-        labelTerrain.textContent = "Quel terrain ?";
+        labelTerrain.textContent = "Terrain";
         rowTerrain.appendChild(labelTerrain);
 
         const selectTerrain = document.createElement("select");
@@ -123,27 +110,48 @@ function afficherExercice(exercice) {
 
         const optionTerrain = document.createElement("option");
         optionTerrain.textContent = "--Veuillez choisir un terrain--";
-        optionTerrain.value = "0";
         selectTerrain.appendChild(optionTerrain);
 
+        const optionTerrain1 = document.createElement("option");
+        optionTerrain1.textContent = "Terrain n°1";
+        optionTerrain1.value = "0";
+        selectTerrain.appendChild(optionTerrain1);
 
-        // -- Bouton valider --
+        const optionTerrain2 = document.createElement("option");
+        optionTerrain2.textContent = "Terrain n°2";
+        optionTerrain2.value = "1";
+        selectTerrain.appendChild(optionTerrain2);
 
+        const optionTerrain3 = document.createElement("option");
+        optionTerrain3.textContent = "Terrain n°3";
+        optionTerrain3.value = "2";
+        selectTerrain.appendChild(optionTerrain3);
+
+        const optionTerrain4 = document.createElement("option");
+        optionTerrain4.textContent = "Terrain n°4";
+        optionTerrain4.value = "3";
+        selectTerrain.appendChild(optionTerrain4);
+
+        const optionTerrain5 = document.createElement("option");
+        optionTerrain5.textContent = "Terrain n°5";
+        optionTerrain5.value = "4";
+        selectTerrain.appendChild(optionTerrain5);
+
+        //Boutton de validation
         const boutonValider = document.createElement("button");
         boutonValider.id = "btn-valider";
         boutonValider.textContent = "Valider";
         formContainer.appendChild(boutonValider);
     }
 
-
-    // ─── Exercice 2 ──────────────────────────────────────────────────────────
+    //Exercice 2
     else if (exercice === "TP2_BDD_EXO_2") {
 
-        // Image
+        //Image
         img.src = "Capture/Capture_exo_2.PNG";
         img.alt = "Capture de la BDD exercice 2";
 
-        // -- Patient --
+        //Patient
 
         const labelPatient = document.createElement("p");
         labelPatient.textContent = "Patient";
@@ -159,8 +167,7 @@ function afficherExercice(exercice) {
         inputPrenom.placeholder = "Prénom";
         formContainer.appendChild(inputPrenom);
 
-        // -- Docteur --
-
+        //Docteur
         const labelDocteur = document.createElement("p");
         labelDocteur.textContent = "Docteur";
         formContainer.appendChild(labelDocteur);
@@ -170,37 +177,107 @@ function afficherExercice(exercice) {
         formContainer.appendChild(selectDocteur);
 
         const optionDocteur = document.createElement("option");
-        optionDocteur.textContent = "--Veuillez choisir un docteur--";
-        optionDocteur.value = "0";
+        optionDocteur.textContent = "Veuillez choisir un docteur";
+        optionDocteur.value = "";
         selectDocteur.appendChild(optionDocteur);
+
+        //Boutton de validation
+        const boutonValider2 = document.createElement("button");
+        boutonValider2.id = "btn-valider";
+        boutonValider2.textContent = "Valider";
+        formContainer.appendChild(boutonValider2);
     }
 
-
-    // ─── Exercice 3 ──────────────────────────────────────────────────────────
+    //Exercice 3 
     else if (exercice === "TP2_BDD_EXO_3") {
 
-        // Image
+        //Image
         img.src = "Capture/Capture_exo_3.PNG";
         img.alt = "Capture de la BDD exercice 3";
 
-        // Interface 3 — à compléter
+        //Interface 3 
+        const selectVille= document.createElement("select");
+        selectVille.id = "select-Ville";
+        formContainer.appendChild(selectVille);
+
+        const option1 = document.createElement("option");
+        option1.textContent = "Veuillez choisir une ville";
+        option1.value = "";
+        selectVille.appendChild(option1);
+
+        const selectEntrepot= document.createElement("select");
+        selectEntrepot.id = "select-Entrepot";
+        formContainer.appendChild(selectEntrepot);
+
+        const option1_1 = document.createElement("option");
+        option1_1.textContent = "Veuillez choisir un entrepôt";
+        option1_1.value = "";
+        selectEntrepot.appendChild(option1_1);
+
+        const inputMarchandise = document.createElement("input");
+        inputMarchandise.type = "text";
+        inputMarchandise.placeholder = "Nom de la marchandise";
+        formContainer.appendChild(inputMarchandise);
+
+        const ligneVertical = document.createElement("hr");
+        formContainer.appendChild(ligneVertical);
+
+        const selectConducteur= document.createElement("select");
+        selectConducteur.id = "select-Conducteur";
+        formContainer.appendChild(selectConducteur);
+
+        const option2_1 = document.createElement("option");
+        option2_1.textContent = "Veuillez choisir un conducteur";
+        option2_1.value = "";
+        selectConducteur.appendChild(option2_1);
+
+        const selectTypeCamion= document.createElement("select");
+        selectTypeCamion.id = "select-Conducteur";
+        formContainer.appendChild(selectTypeCamion);
+
+        const option3_1 = document.createElement("option");
+        option3_1.textContent = "Type de Camion";
+        option3_1.value = "";
+        selectTypeCamion.appendChild(option3_1);
+
+        const selectCamion = document.createElement("select");
+        selectCamion.id = "select-Camion";
+        formContainer.appendChild(selectCamion);
+
+        const option4_1 = document.createElement("option");
+        option4_1.textContent = "Camion";
+        option4_1.value = "";
+        selectCamion.appendChild(option4_1);
+
+        const ligneVertical2 = document.createElement("hr");
+        formContainer.appendChild(ligneVertical2);
+
+        const selectVille2= document.createElement("select");
+        selectVille2.id = "select-Ville2";
+        formContainer.appendChild(selectVille2);
+
+        const option5_1 = document.createElement("option");
+        option5_1.textContent = "Veuillez choisir une ville";
+        option5_1.value = "";
+        selectVille2.appendChild(option5_1);
+
+        const selectEntrepot2= document.createElement("select");
+        selectEntrepot2.id = "select-Entrepot2";
+        formContainer.appendChild(selectEntrepot2);
+
+        const option6_1 = document.createElement("option");
+        option6_1.textContent = "Veuillez choisir un entrepôt";
+        option6_1.value = "";
+        selectEntrepot2.appendChild(option6_1);
     }
 
-
-    // --- Étape finale : on ajoute l'image dans la zone image ---
     document.getElementById("zone-image").appendChild(img);
 }
 
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Quand la page est complètement chargée :
-//   - on branche le bouton sur la fonction connecterBDD
-//   - on appelle connecterBDD une première fois pour afficher l'exercice 1
-// ─────────────────────────────────────────────────────────────────────────────
-document.addEventListener("DOMContentLoaded", function() {
+//Chargement automatique
+document.addEventListener("DOMContentLoaded", function () {
 
     document.getElementById("btn-connecter").addEventListener("click", connecterBDD);
 
-    // Chargement automatique au démarrage
     connecterBDD();
 });
