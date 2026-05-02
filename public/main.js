@@ -47,12 +47,14 @@ function afficherExercice(exercice) {
 
         const input_joueur_1_nom = document.createElement("input");
         input_joueur_1_nom.type = "text";
+        input_joueur_1_nom.id = "nom_joueur_1";
         input_joueur_1_nom.placeholder = "Nom du joueur 1";
         Joueur_1.appendChild(input_joueur_1_nom);
 
         const input_joueur_1_prenom = document.createElement("input");
         input_joueur_1_prenom.type = "text";
         input_joueur_1_prenom.placeholder = "Prenom du joueur 1";
+        input_joueur_1_prenom.id = "prenom_joueur_1";
         Joueur_1.appendChild(input_joueur_1_prenom);
 
         const vs = document.createElement("p");
@@ -141,6 +143,7 @@ function afficherExercice(exercice) {
         const boutonValider = document.createElement("button");
         boutonValider.id = "btn-valider";
         boutonValider.textContent = "Valider";
+        boutonValider.addEventListener("click", envoyer_exo_1);
         formContainer.appendChild(boutonValider);
     }
 
@@ -196,7 +199,7 @@ function afficherExercice(exercice) {
         img.alt = "Capture de la BDD exercice 3";
 
         //Interface 3 
-        const selectVille= document.createElement("select");
+        const selectVille = document.createElement("select");
         selectVille.id = "select-Ville";
         formContainer.appendChild(selectVille);
 
@@ -205,7 +208,7 @@ function afficherExercice(exercice) {
         option1.value = "";
         selectVille.appendChild(option1);
 
-        const selectEntrepot= document.createElement("select");
+        const selectEntrepot = document.createElement("select");
         selectEntrepot.id = "select-Entrepot";
         formContainer.appendChild(selectEntrepot);
 
@@ -222,7 +225,7 @@ function afficherExercice(exercice) {
         const ligneVertical = document.createElement("hr");
         formContainer.appendChild(ligneVertical);
 
-        const selectConducteur= document.createElement("select");
+        const selectConducteur = document.createElement("select");
         selectConducteur.id = "select-Conducteur";
         formContainer.appendChild(selectConducteur);
 
@@ -231,7 +234,7 @@ function afficherExercice(exercice) {
         option2_1.value = "";
         selectConducteur.appendChild(option2_1);
 
-        const selectTypeCamion= document.createElement("select");
+        const selectTypeCamion = document.createElement("select");
         selectTypeCamion.id = "select-Conducteur";
         formContainer.appendChild(selectTypeCamion);
 
@@ -252,7 +255,7 @@ function afficherExercice(exercice) {
         const ligneVertical2 = document.createElement("hr");
         formContainer.appendChild(ligneVertical2);
 
-        const selectVille2= document.createElement("select");
+        const selectVille2 = document.createElement("select");
         selectVille2.id = "select-Ville2";
         formContainer.appendChild(selectVille2);
 
@@ -261,7 +264,7 @@ function afficherExercice(exercice) {
         option5_1.value = "";
         selectVille2.appendChild(option5_1);
 
-        const selectEntrepot2= document.createElement("select");
+        const selectEntrepot2 = document.createElement("select");
         selectEntrepot2.id = "select-Entrepot2";
         formContainer.appendChild(selectEntrepot2);
 
@@ -272,6 +275,23 @@ function afficherExercice(exercice) {
     }
 
     document.getElementById("zone-image").appendChild(img);
+}
+
+function envoyer_exo_1() {
+
+    const nom = document.getElementById("nom_joueur_1").value;
+    const prenom = document.getElementById("prenom_joueur_1").value;
+
+    fetch("/exo_1", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nom: nom,
+            prenom: prenom
+        })
+    })
 }
 
 //Chargement automatique
