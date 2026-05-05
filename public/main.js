@@ -68,11 +68,13 @@ function afficherExercice(exercice) {
         const input_joueur_2_nom = document.createElement("input");
         input_joueur_2_nom.type = "text";
         input_joueur_2_nom.placeholder = "Nom du joueur 2";
+        input_joueur_2_nom.id = "nom_joueur_2";
         Joueur_2.appendChild(input_joueur_2_nom);
 
         const input_joueur_2_prenom = document.createElement("input");
         input_joueur_2_prenom.type = "text";
         input_joueur_2_prenom.placeholder = "Prenom du joueur 2";
+        input_joueur_2_prenom.id = "prenom_joueur_2";
         Joueur_2.appendChild(input_joueur_2_prenom);
 
         //Partie 2
@@ -111,7 +113,7 @@ function afficherExercice(exercice) {
         rowTerrain.appendChild(selectTerrain);
 
         const optionTerrain = document.createElement("option");
-        optionTerrain.textContent = "--Veuillez choisir un terrain--";
+        optionTerrain.textContent = "Terrain";
         selectTerrain.appendChild(optionTerrain);
 
         const optionTerrain1 = document.createElement("option");
@@ -279,10 +281,11 @@ function afficherExercice(exercice) {
 
 function envoyer_exo_1() {
 
+    //Joueur 1
     const nom = document.getElementById("nom_joueur_1").value;
     const prenom = document.getElementById("prenom_joueur_1").value;
 
-    fetch("/exo_1", {
+    fetch("/exo_1/1", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -292,6 +295,42 @@ function envoyer_exo_1() {
             prenom: prenom
         })
     })
+
+    document.getElementById("nom_joueur_1").value = "";
+    document.getElementById("prenom_joueur_1").value = "";
+
+    const nom2 = document.getElementById("nom_joueur_2").value;
+    const prenom2 = document.getElementById("prenom_joueur_2").value;
+
+    //Joueur 2
+    fetch("/exo_1/2", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            nom2: nom2,
+            prenom2: prenom2
+        })
+    })
+
+    document.getElementById("nom_joueur_2").value = "";
+    document.getElementById("prenom_joueur_2").value = "";
+
+    //Terrain
+    const selectTerrain = document.getElementById("select-terrain");
+    const terrainSelectionne = selectTerrain.value;
+
+    fetch("/exo_1/terrain", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            terrainSelectionne: terrainSelectionne
+        })
+    })
+    document.getElementById("select-terrain").value = "";  
 }
 
 //Chargement automatique

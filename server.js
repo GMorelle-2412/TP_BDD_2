@@ -44,19 +44,45 @@ app.get('/use/:BDD_name', (req, res) => {
 });
 
 /* Routes */
-app.post('/exo_1', (req, res) => {
-  db.query(                                    // "connection" → "db"
-    'INSERT INTO Joueur (nom, prenom) VALUES (?, ?)',
-    [req.body.nom, req.body.prenom],
-    (err, results) => {
-      if (err) {
-        console.error('Erreur lors de l\'insertion :', err);
-        return res.status(500).json({ message: 'Erreur serveur' });
-      }
-      console.log('Insertion réussie, ID :', results.insertId);
-      res.json({ message: 'Inscription réussie !', userId: results.insertId });
+app.post('/exo_1/1', (req, res) => {
+  const nom = req.body.nom;
+  const prenom = req.body.prenom;
+
+  const sql = "INSERT INTO Joueur (nom, prenom) VALUES (?, ?)";
+
+  db.query(sql, [nom, prenom], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err });
     }
-  );
+    res.json({ message: "Étudiant ajouté !" });
+  });
+});
+
+app.post('/exo_1/2', (req, res) => {
+  const nom2 = req.body.nom2;
+  const prenom2 = req.body.prenom2;
+
+  const sql = "INSERT INTO Joueur (nom, prenom) VALUES (?, ?)";
+
+  db.query(sql, [nom2, prenom2], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err });
+    }
+    res.json({ message: "Étudiant ajouté !" });
+  });
+});
+
+app.post('/exo_1/terrain', (req, res) => {
+  const terrainSelectionne = req.body.terrainSelectionne;
+
+  const sql = "INSERT INTO Terrain (id) VALUES (?)";
+
+  db.query(sql, [terrainSelectionne], (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: err });
+    }
+    res.json({ message: "Terrain ajouté !" });
+  });
 });
 
 /* Lancement */
